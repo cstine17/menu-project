@@ -28,7 +28,7 @@ const OrganizedMenu = ({foods}) => {
             menuItem.image && 
             menuItem.description 
         ){
-            const newMenuItem = {...menuItem,id: (newFoods.length + 1)}
+            const newMenuItem = {...menuItem,id: new Date().getTime().toString()}
             setMenu([...menu,newMenuItem]);
             setMenuItem({
                 id: '',
@@ -40,41 +40,52 @@ const OrganizedMenu = ({foods}) => {
             });
         }
     };
-    
+    const removeMenuItem = (id) => {
+        const newMenu = menu.filter((menuItem) => menuItem.id !== id);
+        setMenu(newMenu);
+    };
+
     return (
         <main>
             <div className="section-center">
                 {menu.map((menuItem)=>{ 
-                    const {title,image,description,price} = menuItem;
+                    const {id,title,image,description,price} = menuItem;
                     return (
-                    <div className="card-container">
-                        <div className="image-container">
-                            <img src={image} alt={title} />
+                        <div className="card-container">
+                            <div className="image-container">
+                                <img src={image} alt={title} />
+                            </div>
+                            <div className="card-content">
+                                <div className="card-title">
+                                    <h3>{title}</h3>                    
+                                </div>
+                                <div>
+                                    <h3>$ {price}</h3>
+                                </div>
+                                <div className="card-body">
+                                    <p>{description}</p>
+                                </div>
+                                <div className="btn">
+                                    <button onClick={()=>{if (window.confirm('Are you sure you wish to delete this item?')) removeMenuItem(id)}}>
+                                        <a>
+                                            Remove Item
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div className="card-content">
-                            <div className="card-title">
-                                <h3>{title}</h3>                    
-                            </div>
-                            <div>
-                                <h3>$ {price}</h3>
-                            </div>
-                            <div className="card-body">
-                                <p>{description}</p>
-                            </div>
-                        </div>
-                    </div>
                     );
                 })}
             </div>                            
             <article>
-                <form className="form" onSubmit={handleSubmit}>
+                <form className="form">
                     <div className="form-control">
                         <label htmlFor="title">Title : </label>
                         <input 
                             type='text' 
                             id='title'
                             name='title'
-                            vlaue={menuItem.title}
+                            value={menuItem.title}
                             onChange={handleChange}
                         />
                     </div>
@@ -84,7 +95,7 @@ const OrganizedMenu = ({foods}) => {
                             type='text'
                             id='category'
                             name='category'
-                            vlaue={menuItem.category}
+                            value={menuItem.category}
                             onChange={handleChange}
                         />
                     </div>
@@ -94,7 +105,7 @@ const OrganizedMenu = ({foods}) => {
                             type='number' 
                             id='price'
                             name='price'
-                            vlaue={menuItem.price}
+                            value={menuItem.price}
                             onChange={handleChange}
                         />
                     </div>
@@ -104,7 +115,7 @@ const OrganizedMenu = ({foods}) => {
                             type='url' 
                             id='image'
                             name='image'
-                            vlaue={menuItem.image}
+                            value={menuItem.image}
                             onChange={handleChange}
                         />
                     </div>
@@ -114,7 +125,7 @@ const OrganizedMenu = ({foods}) => {
                             type='text' 
                             id='description'
                             name='description'
-                            vlaue={menuItem.description}
+                            value={menuItem.description}
                             onChange={handleChange}
                         />
                     </div>
