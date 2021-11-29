@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './Components/Card.css'
 import './Components/Menu.css'
+import Categories from './Categories';
 
 const OrganizedMenu = ({foods}) => {
     const newFoods=foods
@@ -44,10 +45,23 @@ const OrganizedMenu = ({foods}) => {
         const newMenu = menu.filter((menuItem) => menuItem.id !== id);
         setMenu(newMenu);
     };
-
+    // category setup/call for menu filtering
+    const allCategories =['all',...new Set(foods.map((item)=> item.category))];
+    const [categories] = useState(allCategories);
+    const filterItems = (category) => {
+        if(category==='all'){
+        setMenu(foods);
+        console.log(menu);
+        return;
+        }
+        const newItems = foods.filter((item)=> item.category === category)
+        setMenu(newItems)
+    }
+    // Display formatting:
     return (
         <main>
-            <div className="section-center">
+            <Categories categories={categories} filterItems={filterItems} />
+            <div className="section-center">                
                 {menu.map((menuItem)=>{ 
                     const {id,title,image,description,price} = menuItem;
                     return (
