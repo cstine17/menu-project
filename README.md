@@ -1,3 +1,9 @@
+# Project App Instructions:
+1) Clone github repository to your work folder with: 'git clone https://github.com/cstine17/menu-project.git'
+2) Navigate to your work directory/menu-project in powershell(or equivalent) and run 'npm install', this will install all required dependencies for react app. 
+3) Run 'npm start' to see test build in your browser at default location (http://localhost:3000)
+5) Feel free to email cstine17@gmail.com if you have any further questions!
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
